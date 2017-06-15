@@ -1,0 +1,15 @@
+create user 'editor'@'localhost' identified by 'editor123';
+grant update on *.* to 'editor'@'localhost';
+create user 'consultor'@'localhost' identified by 'consultor123';
+grant select on *.* to 'consultor'@'localhost';
+create user 'creador'@'localhost' identified by 'creador123';
+grant create on *.* to 'creador'@'localhost';
+select id_equipo, equipo from equipo order by equipo desc;
+select equipo from equipo where equipo like 'maria%';
+select count(*) from equipo where id_categoria='2';
+select evento.evento, count(equipo.equipo) as equipo from equipo left join evento as evento on equipo.id_evento=evento.id_evento;
+select categoria.categoria, count(equipo.equipo) as equipo from equipo left join categoria on equipo.id_categoria=categoria.id_categoria group by categoria.categoria;
+select equipo.equipo, categoria.categoria from equipo left join categoria as categoria on equipo.id_categoria=categoria.id_categoria where categoria.categoria like 'quinto%';
+select categoria.categoria, count(equipo.equipo) as equipo from equipo as equipo left join categoria as categoria on equipo.id_categoria=categoria.id_categoria group by categoria.categoria;
+select area.area, count(pregunta.id_preg) as pregunta from pregunta as pregunta left join area as area on pregunta.id_area=area.id_area where pregunta.id_dificultad=1 group by area.area;
+select a.id_preg as no, a.respuesta, b.tiempo, b.decs_dificultad as dificultad from (pregunta as a inner join pdificultad as b on a.id_dificultad=b.id_pdificultad) where b.decs_dificultad='baja' or b.decs_dificultad='alta';
